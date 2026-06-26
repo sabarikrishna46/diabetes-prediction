@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Entry – Glucose Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('static/917017949818ccfe4475e5f7f65979b6.jpg');
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            margin: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: #1a3c6d;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            color: #333;
+            font-size: 26px;
+            font-weight: 600;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        h4 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #2e7d32;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        form {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        label {
+            font-weight: 600;
+            color: #1a3c6d;
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #004aad;
+            box-shadow: 0 0 8px rgba(0, 74, 173, 0.2);
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background-color: #004aad;
+            color: #ffffff;
+            padding: 12px;
+            width: 180px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: block;
+            margin: 20px auto 0;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #003b8c;
+            transform: translateY(-2px);
+        }
+
+        input[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        a.back-button {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #004aad;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px 15px;
+            border: 1px solid #004aad;
+            border-radius: 5px;
+            width: 180px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        a.back-button:hover {
+            color: #ffffff;
+            background-color: #004aad;
+            text-decoration: none;
+        }
+
+        .result {
+            margin-top: 40px;
+            padding: 25px;
+            background-color: rgba(135, 206, 235, 0.3);
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .chart-container {
+            text-align: center;
+        }
+
+        img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            h3 {
+                font-size: 22px;
+            }
+
+            h4 {
+                font-size: 18px;
+            }
+
+            label {
+                font-size: 16px;
+            }
+
+            input[type="text"],
+            input[type="number"],
+            select {
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            input[type="submit"],
+            a.back-button {
+                font-size: 16px;
+                padding: 10px;
+                width: 150px;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            img {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Manual Glucose Prediction Entry</h2>
+        <form action="/manual-entry" method="POST">
+            <label for="age">Age:</label>
+            <input type="number" name="age" required>
+
+            <label for="gender">Gender:</label>
+            <select name="gender" required>
+                <option value="">--Select--</option>
+                <option value="0">Male</option>
+                <option value="1">Female</option>
+            </select>
+
+            <label for="weight">Weight (kg):</label>
+            <input type="number" name="weight" step="0.1" required>
+
+            <label for="systolic_bp">Systolic BP:</label>
+            <input type="number" name="systolic_bp" required>
+
+            <label for="diastolic_bp">Diastolic BP:</label>
+            <input type="number" name="diastolic_bp" required>
+
+            <label for="cholesterol">Cholesterol:</label>
+            <input type="number" name="cholesterol" required>
+
+            <label for="month1">Month 1 Glucose Level:</label>
+            <input type="number" name="month1" required>
+
+            <label for="month2">Month 2 Glucose Level:</label>
+            <input type="number" name="month2" required>
+
+            <label for="month3">Month 3 Glucose Level:</label>
+            <input type="number" name="month3" required>
+
+            <input type="submit" value="Predict">
+            <a href="/" class="back-button">Back to Home</a>
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <h3>Predicted Glucose Level: {{ prediction }}</h3>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h4>Line Graph – Glucose Trend</h4>
+                    <img src="data:image/png;base64,{{ line_graph }}" alt="Line Graph">
+                </div>
+                <div class="chart-container">
+                    <h4>Bar Graph – Monthly Glucose</h4>
+                    <img src="data:image/png;base64,{{ bar_graph }}" alt="Bar Graph">
+                </div>
+                <div class="chart-container">
+                    <h4>Multivariate Graph – Health Metrics</h4>
+                    <img src="data:image/png;base64,{{ multivariate_graph }}" alt="Multivariate Graph">
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

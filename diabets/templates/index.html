@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glucose Prediction Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('static/917017949818ccfe4475e5f7f65979b6.jpg');
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            margin: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: #1a3c6d;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            color: #333;
+            font-size: 26px;
+            font-weight: 600;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        h4 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #2e7d32;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        label {
+            font-weight: 600;
+            color: #1a3c6d;
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #004aad;
+            box-shadow: 0 0 8px rgba(0, 74, 173, 0.2);
+            outline: none;
+        }
+
+        button {
+            background-color: #004aad;
+            color: #ffffff;
+            padding: 12px;
+            width: 180px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        button:hover {
+            background-color: #003b8c;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #004aad;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px 15px;
+            border: 1px solid #004aad;
+            border-radius: 5px;
+            width: 180px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        a:hover {
+            color: #ffffff;
+            background-color: #004aad;
+            text-decoration: none;
+        }
+
+        img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 15px;
+        }
+
+        .patient-info {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: rgba(135, 206, 235, 0.3);
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .patient-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .patient-info li {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .patient-info li strong {
+            color: #1a3c6d;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .chart-container {
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            h3 {
+                font-size: 22px;
+            }
+
+            h4 {
+                font-size: 18px;
+            }
+
+            label {
+                font-size: 16px;
+            }
+
+            input[type="text"] {
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            button {
+                font-size: 16px;
+                padding: 10px;
+                width: 150px;
+            }
+
+            a {
+                font-size: 14px;
+                width: 150px;
+                padding: 8px 12px;
+            }
+
+            .patient-info li {
+                font-size: 16px;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            img {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Diabetes Glucose Prediction</h2>
+        <form method="post">
+            <label for="patient_id">Enter Patient ID:</label>
+            <input type="text" name="patient_id" value="{{ patient_id }}" required>
+            <button type="submit">Predict</button>
+            <a href="/manual-entry">Or SAMPLE DATA →</a>
+        </form>
+
+        {% if patient_info %}
+        <div class="patient-info">
+            <h4>Patient Information:</h4>
+            <ul>
+                <li><strong>Patient ID:</strong> {{ patient_info.PatientID }}</li>
+                <li><strong>Weight:</strong> {{ patient_info.Weight }}</li>
+                <li><strong>Systolic BP:</strong> {{ patient_info.SystolicBP }}</li>
+                <li><strong>Diastolic BP:</strong> {{ patient_info.DiastolicBP }}</li>
+                <li><strong>Cholesterol:</strong> {{ patient_info.Cholesterol }}</li>
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if chart or bar_chart or multivariate_chart %}
+        <div class="charts-grid">
+            {% if chart %}
+            <div class="chart-container">
+                <h3>Prediction Line Chart</h3>
+                <img src="data:image/png;base64,{{ chart }}" alt="Prediction Chart">
+            </div>
+            {% endif %}
+            {% if bar_chart %}
+            <div class="chart-container">
+                <h3>Glucose Bar Chart</h3>
+                <img src="data:image/png;base64,{{ bar_chart }}" alt="Bar Chart">
+            </div>
+            {% endif %}
+            {% if multivariate_chart %}
+            <div class="chart-container">
+                <h3>Multivariate Glucose Analysis</h3>
+                <img src="data:image/png;base64,{{ multivariate_chart }}" alt="Multivariate Chart">
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if predicted_glucose %}
+        <h4>Predicted Glucose for Next Month: <strong>{{ predicted_glucose }}</strong></h4>
+        {% endif %}
+    </div>
+</body>
+</html>
